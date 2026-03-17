@@ -5,6 +5,7 @@ export default function HomeStackLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="rive" />
+      <Stack.Screen name="rive2" />
     </Stack>
   );
 }

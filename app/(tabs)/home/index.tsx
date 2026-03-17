@@ -31,6 +31,18 @@ export default function HomeScreen() {
           </ThemedText>
           <IconSymbol name="play.fill" size={20} color="#FFFFFF" />
         </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            styles.riveButton,
+            pressed && styles.riveButtonPressed,
+          ]}
+          onPress={() => router.push("/home/rive2")}
+        >
+          <ThemedText type="subtitle" style={styles.riveButtonText}>
+            Open Rive 2
+          </ThemedText>
+          <IconSymbol name="play.fill" size={20} color="#FFFFFF" />
+        </Pressable>
       </ThemedView>
     </ParallaxScrollView>
   );
