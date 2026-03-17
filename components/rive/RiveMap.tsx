@@ -9,9 +9,7 @@ import {
   useViewModelInstance,
 } from "@rive-app/react-native";
 import { useEffect } from "react";
-import { StyleSheet } from "react-native";
-import { ThemedText } from "../themed-text";
-import { ThemedView } from "../themed-view";
+import { StyleSheet, Text, View } from "react-native";
 import { type StudentMonster } from "./monster";
 import { riveAssets } from "./riveAssets";
 import { useRiveMonster } from "./useRiveMonster";
@@ -68,8 +66,14 @@ export const RiveMap = ({
     riveViewRef?.playIfNeeded();
   }, [level, setCurrentLevel, riveViewRef]);
 
+  useEffect(() => {
+    return () => {
+      console.log("unmounting");
+    };
+  }, []);
+
   return (
-    <ThemedView style={{ height }}>
+    <View style={{ height }}>
       {dataBind && riveFile ? (
         <RiveView
           dataBind={dataBind}
@@ -79,8 +83,8 @@ export const RiveMap = ({
           style={StyleSheet.absoluteFill}
         />
       ) : (
-        <ThemedText>Loading...</ThemedText>
+        <Text>Loading...</Text>
       )}
-    </ThemedView>
+    </View>
   );
 };

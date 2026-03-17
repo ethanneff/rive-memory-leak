@@ -1,18 +1,21 @@
-import { router } from "expo-router";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { RiveMap } from "@/components/rive/RiveMap";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { IconSymbol } from "@/components/ui/icon-symbol";
+import { router } from "expo-router";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Rive2Screen() {
   const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
   const mapHeight = windowHeight / 2;
+
   return (
-    <ThemedView style={styles.container}>
+    <View style={styles.container}>
       <View style={[styles.header, { paddingTop: insets.top }]}>
         <Pressable
           onPress={() => router.back()}
@@ -21,10 +24,9 @@ export default function Rive2Screen() {
             pressed && styles.backButtonPressed,
           ]}
         >
-          <IconSymbol name="chevron.left" size={24} color="#0A7EA4" />
-          <ThemedText type="defaultSemiBold">Back</ThemedText>
+          <Text style={styles.backText}>← Back</Text>
         </Pressable>
-        <ThemedText type="subtitle">Rive Map</ThemedText>
+        <Text style={styles.title}>Rive Map</Text>
       </View>
       <RiveMap
         height={mapHeight}
@@ -33,7 +35,7 @@ export default function Rive2Screen() {
         onComplete={() => router.back()}
         waiting={false}
       />
-    </ThemedView>
+    </View>
   );
 }
 
@@ -55,5 +57,14 @@ const styles = StyleSheet.create({
   },
   backButtonPressed: {
     opacity: 0.7,
+  },
+  backText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#0A7EA4",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "600",
   },
 });
