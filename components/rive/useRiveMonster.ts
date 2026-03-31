@@ -8,7 +8,7 @@ import { getRiveMonsterProperties } from "./getRiveMonsterProperties";
 import { type StudentMonster } from "./monster";
 
 type Properties = {
-  dataBind: null | ViewModelInstance;
+  dataBind: null | ViewModelInstance | undefined;
   key: string;
   riveViewRef: null | RiveViewRef;
   studentMonster?: null | StudentMonster;

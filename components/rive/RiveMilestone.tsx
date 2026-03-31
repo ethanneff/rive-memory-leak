@@ -21,24 +21,24 @@ export const RiveMilestone = ({ milestoneNumber, onComplete }: Properties) => {
   const { uri } = getRiveAssets.chest;
   const { error, riveFile } = useRiveFile(uri);
   const { riveRef, setHybridRef } = useRive();
-  const dataBind = useViewModelInstance(riveFile);
-  const { setValue: setMilestoneNumber } = useRiveNumber("milestone", dataBind);
+  const { instance } = useViewModelInstance(riveFile);
+  const { setValue: setMilestoneNumber } = useRiveNumber("milestone", instance);
 
   const handleComplete = useCallback(async () => {
     await riveRef.current?.pause();
     onComplete();
   }, [onComplete, riveRef]);
 
-  useRiveTrigger("animationComplete", dataBind, {
+  useRiveTrigger("animationComplete", instance, {
     onTrigger: handleComplete,
   });
 
   useEffect(() => {
-    if (!dataBind) return;
+    if (!instance) return;
     if (!riveFile) return;
     setMilestoneNumber(milestoneNumber);
     riveRef.current?.playIfNeeded();
-  }, [dataBind, milestoneNumber, riveFile, riveRef, setMilestoneNumber]);
+  }, [instance, milestoneNumber, riveFile, riveRef, setMilestoneNumber]);
 
   useEffect(() => {
     if (!error) return;
@@ -47,10 +47,10 @@ export const RiveMilestone = ({ milestoneNumber, onComplete }: Properties) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {dataBind && riveFile ? (
+      {instance && riveFile ? (
         <RiveView
           autoPlay
-          dataBind={dataBind}
+          dataBind={instance}
           file={riveFile}
           fit={Fit.Cover}
           hybridRef={setHybridRef}

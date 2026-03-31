@@ -36,14 +36,22 @@ export const RiveMap = ({
   const { riveFile } = useRiveFile(getRiveAssets.map.uri, {
     referencedAssets: getRiveAssets.map.referencedAssets,
   });
-  const dataBind = useViewModelInstance(riveFile);
-  const { setValue: setCurrentLevel } = useRiveNumber("currentLevel", dataBind);
-  const { setValue: setWaiting } = useRiveBoolean("waiting", dataBind);
-  const { setValue: setHop } = useRiveBoolean("avatarHop", dataBind);
+  const { instance } = useViewModelInstance(riveFile);
+  const { setValue: setCurrentLevel } = useRiveNumber("currentLevel", instance);
+  const { setValue: setWaiting } = useRiveBoolean("waiting", instance);
+  const { setValue: setHop } = useRiveBoolean("avatarHop", instance);
   const { riveViewRef, setHybridRef } = useRive();
 
-  useRiveTrigger("animationComplete", dataBind, { onTrigger: onComplete });
-  useRiveMonster({ dataBind, key: monsterKey, riveViewRef, studentMonster });
+  useRiveTrigger("animationComplete", instance, {
+    onTrigger: onComplete,
+  });
+
+  useRiveMonster({
+    dataBind: instance,
+    key: monsterKey,
+    riveViewRef,
+    studentMonster,
+  });
 
   useEffect(() => {
     setHop(hop);
@@ -66,9 +74,9 @@ export const RiveMap = ({
 
   return (
     <View style={{ height }}>
-      {dataBind && riveFile ? (
+      {instance && riveFile ? (
         <RiveView
-          dataBind={dataBind}
+          dataBind={instance}
           file={riveFile}
           fit={Fit.Cover}
           hybridRef={setHybridRef}
