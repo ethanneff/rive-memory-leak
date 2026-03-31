@@ -1,9 +1,3 @@
-const mapBaseUri = "https://assets.adaptedmind.com/mobile/v1/rive/map";
-const monsterPartsBaseUri =
-  "https://assets.adaptedmind.com/mobile/v1/rive/monster/parts";
-
-const riveBaseUri = "https://assets.adaptedmind.com/mobile/v2/rive";
-
 const monsterPartNames = [
   "baseballBat_m_1",
   "chefGlove_m_1",
@@ -244,7 +238,13 @@ const monsterPartNames = [
 ];
 
 type ReferencedAssetsMap = {
+  chest: ReferencedAssets;
+  egg: ReferencedAssets;
   map: ReferencedAssets;
+  monster: ReferencedAssets;
+  pet: ReferencedAssets;
+  runningMonsters: ReferencedAssets;
+  ship: ReferencedAssets;
 };
 
 type RiveAssetSource = {
@@ -254,25 +254,82 @@ type RiveAssetSource = {
 type ReferencedAssets = {
   referencedAssets: Record<string, RiveAssetSource>;
   uri: string;
+  audio?: string[];
+  priority?: number;
+};
+
+const baseUrl = `https://assets.adaptedmind.com/mobile/v2`;
+
+const getUrl = {
+  images: `${baseUrl}/images`,
+  monsterParts: `${baseUrl}/monsterParts`,
+  rive: `${baseUrl}/rive`,
+  sounds: `${baseUrl}/sounds`,
 };
 
 const monsterAssets = Object.fromEntries(
   monsterPartNames.map((part) => [
     part,
-    { source: { uri: `${monsterPartsBaseUri}/${part}.webp` } },
+    { source: { uri: `${getUrl.monsterParts}/${part}.webp` } },
   ])
 );
 
-export const riveAssets: ReferencedAssetsMap = {
+export const getRiveAssets: ReferencedAssetsMap = {
+  chest: {
+    audio: [
+      `${getUrl.rive}/chest-m1-v1.mp3`,
+      `${getUrl.rive}/chest-m2-v1.mp3`,
+      `${getUrl.rive}/chest-m3-v1.mp3`,
+    ],
+    priority: 2,
+    referencedAssets: {},
+    uri: `${getUrl.rive}/chest-v2.riv`,
+  },
+  egg: {
+    audio: [
+      `${getUrl.rive}/egg-m1-v1.mp3`,
+      `${getUrl.rive}/egg-m2-v1.mp3`,
+      `${getUrl.rive}/egg-m3-v1.mp3`,
+    ],
+    priority: 2,
+    referencedAssets: {},
+    uri: `${getUrl.rive}/egg-v4.riv`,
+  },
   map: {
+    audio: [],
+    priority: 1,
     referencedAssets: {
-      Lemon: { source: { uri: `${mapBaseUri}/Lemon-Regular.ttf` } },
-      map1: { source: { uri: `${mapBaseUri}/map1-2.webp` } },
-      map2: { source: { uri: `${mapBaseUri}/map2-2.webp` } },
-      map3: { source: { uri: `${mapBaseUri}/map3-2.webp` } },
-      map4: { source: { uri: `${mapBaseUri}/map4-2.webp` } },
+      Lemon: { source: { uri: `${getUrl.rive}/Lemon-Regular.ttf` } },
+      map1: { source: { uri: `${getUrl.rive}/map1-v1.webp` } },
+      map2: { source: { uri: `${getUrl.rive}/map2-v1.webp` } },
+      map3: { source: { uri: `${getUrl.rive}/map3-v1.webp` } },
+      map4: { source: { uri: `${getUrl.rive}/map4-v1.webp` } },
       ...monsterAssets,
     },
-    uri: `${riveBaseUri}/map-v1.riv`,
+    uri: `${getUrl.rive}/map-v4.riv`,
+  },
+  monster: {
+    audio: [],
+    priority: 3,
+    referencedAssets: monsterAssets,
+    uri: `${getUrl.rive}/monster-v1.riv`,
+  },
+  pet: {
+    audio: [],
+    priority: 3,
+    referencedAssets: {},
+    uri: `${getUrl.rive}/pet-v1.riv`,
+  },
+  runningMonsters: {
+    audio: [],
+    priority: 2,
+    referencedAssets: monsterAssets,
+    uri: `${getUrl.rive}/compliment-v3.riv`,
+  },
+  ship: {
+    audio: [`${getUrl.rive}/ship-m1-v1.mp3`, `${getUrl.rive}/ship-m2-v1.mp3`],
+    priority: 2,
+    referencedAssets: {},
+    uri: `${getUrl.rive}/ship-v2.riv`,
   },
 };

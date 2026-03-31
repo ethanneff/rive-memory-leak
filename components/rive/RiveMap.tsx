@@ -11,7 +11,7 @@ import {
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { type StudentMonster } from "./monster";
-import { riveAssets } from "./riveAssets";
+import { getRiveAssets } from "./riveAssets";
 import { useRiveMonster } from "./useRiveMonster";
 
 const monsterKey = "studentMonsterAvatarVM/";
@@ -23,7 +23,6 @@ type Properties = {
   readonly onComplete: () => void;
   readonly studentMonster?: null | StudentMonster;
   readonly waiting: boolean;
-  readonly withReferencedAssets?: boolean;
 };
 
 export const RiveMap = ({
@@ -31,12 +30,11 @@ export const RiveMap = ({
   hop,
   level,
   onComplete,
-  withReferencedAssets,
   studentMonster,
   waiting,
 }: Properties) => {
-  const { riveFile } = useRiveFile(riveAssets.map.uri, {
-    referencedAssets: riveAssets.map.referencedAssets,
+  const { riveFile } = useRiveFile(getRiveAssets.map.uri, {
+    referencedAssets: getRiveAssets.map.referencedAssets,
   });
   const dataBind = useViewModelInstance(riveFile);
   const { setValue: setCurrentLevel } = useRiveNumber("currentLevel", dataBind);
@@ -65,12 +63,6 @@ export const RiveMap = ({
     }
     riveViewRef?.playIfNeeded();
   }, [level, setCurrentLevel, riveViewRef]);
-
-  useEffect(() => {
-    return () => {
-      console.log("unmounting");
-    };
-  }, []);
 
   return (
     <View style={{ height }}>

@@ -11,6 +11,10 @@ npm install
 npm run android
 ```
 
-# test
+```
+npm run ios
+```
 
-navigate back and forth between tabs
+# performance test
+
+connect to xcode or android studio profile to see memory leak

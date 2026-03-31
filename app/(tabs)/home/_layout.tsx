@@ -6,6 +6,7 @@ export default function HomeStackLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="rive" />
       <Stack.Screen name="rive2" />
+      <Stack.Screen name="rive3" />
     </Stack>
   );
 }

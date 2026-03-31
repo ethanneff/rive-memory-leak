@@ -19,7 +19,7 @@ export default function HomeScreen() {
           ]}
           onPress={() => router.push("/home/rive")}
         >
-          <Text style={styles.riveButtonText}>Open Rive</Text>
+          <Text style={styles.riveButtonText}>Open Rive (default)</Text>
           <Text style={styles.riveButtonText}>▶</Text>
         </Pressable>
         <Pressable
@@ -29,7 +29,19 @@ export default function HomeScreen() {
           ]}
           onPress={() => router.push("/home/rive2")}
         >
-          <Text style={styles.riveButtonText}>Open Rive 2</Text>
+          <Text style={styles.riveButtonText}>
+            Open Rive 2 (referenced assets)
+          </Text>
+          <Text style={styles.riveButtonText}>▶</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            styles.riveButton,
+            pressed && styles.riveButtonPressed,
+          ]}
+          onPress={() => router.push("/home/rive3")}
+        >
+          <Text style={styles.riveButtonText}>Open Rive 3 (custom)</Text>
           <Text style={styles.riveButtonText}>▶</Text>
         </Pressable>
       </View>
